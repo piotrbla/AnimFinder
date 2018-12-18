@@ -252,4 +252,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401deab3df17fc741a4dc2ff4099f93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tolerance: 0.02
+  DistanceToAnimal: 1.8
