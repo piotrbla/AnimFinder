@@ -5,9 +5,18 @@ public class Main : MonoBehaviour
 {
     public float DistanceToAnimal = 2.2f;
 
+    private float minX = 0f;
+    private float maxX = 0f;
+    private float minY = 0f;
+    private float maxY = 0f;
     void Start()
     {
-        print("First");
+        var pointMin = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
+        var pointMax = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.nearClipPlane));
+        minX = pointMin.x;
+        minY = pointMin.y;
+        maxX = pointMax.x;
+        maxY = pointMax.y;
     }
 
     void Update()
@@ -29,8 +38,12 @@ public class Main : MonoBehaviour
                 : rigidBody.position.y - forceY;
             //print(point);
             //print(rigidBody);
-            Vector2 newPosition = new Vector2(newX, newY);
-            rigidBody.MovePosition(newPosition);
+            if (newX > minX + DistanceToAnimal && newX < maxX - DistanceToAnimal 
+                && newY > minY + DistanceToAnimal && newY < maxY - DistanceToAnimal)
+            {
+                Vector2 newPosition = new Vector2(newX, newY);
+                rigidBody.MovePosition(newPosition);
+            }
         }
     }
 }
