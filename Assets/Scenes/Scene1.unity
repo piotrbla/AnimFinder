@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401deab3df17fc741a4dc2ff4099f93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DistanceToAnimal: 1.8
+  DistanceToAnimal: 1.1
 --- !u!1 &1580452117
 GameObject:
   m_ObjectHideFlags: 0

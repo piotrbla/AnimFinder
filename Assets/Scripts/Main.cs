@@ -13,10 +13,10 @@ public class Main : MonoBehaviour
     {
         var pointMin = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
         var pointMax = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.nearClipPlane));
-        minX = pointMin.x;
-        minY = pointMin.y;
-        maxX = pointMax.x;
-        maxY = pointMax.y;
+        minX = pointMin.x + 2 * DistanceToAnimal;
+        minY = pointMin.y + 2 * DistanceToAnimal;
+        maxX = pointMax.x - 2 * DistanceToAnimal;
+        maxY = pointMax.y - 2 * DistanceToAnimal;
     }
 
     void Update()
@@ -28,22 +28,20 @@ public class Main : MonoBehaviour
         float diffY = Math.Abs(point.y - rigidBody.position.y);
         if (diffX < DistanceToAnimal && diffY < DistanceToAnimal)
         {
-            float forceX = DistanceToAnimal - diffX;
-            float forceY = DistanceToAnimal - diffY;
+            float forceX = diffX;
+            float forceY = diffY;
+            print("forceX " + forceX.ToString());
+            print("forceY " + forceY.ToString());
             float newX = point.x < rigidBody.position.x
                 ? rigidBody.position.x + forceX
                 : rigidBody.position.x - forceX;
             float newY = point.y < rigidBody.position.y
                 ? rigidBody.position.y + forceY
                 : rigidBody.position.y - forceY;
-            //print(point);
-            //print(rigidBody);
-            if (newX > minX + DistanceToAnimal && newX < maxX - DistanceToAnimal 
-                && newY > minY + DistanceToAnimal && newY < maxY - DistanceToAnimal)
-            {
-                Vector2 newPosition = new Vector2(newX, newY);
-                rigidBody.MovePosition(newPosition);
-            }
+            newX = Mathf.Clamp(newX, minX, maxX);
+            newY = Mathf.Clamp(newY, minY, maxY);
+            Vector2 newPosition = new Vector2(newX, newY);
+            rigidBody.MovePosition(newPosition);
         }
     }
 }
