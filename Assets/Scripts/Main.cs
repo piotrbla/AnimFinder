@@ -24,18 +24,14 @@ public class Main : MonoBehaviour
         var mouse = Input.mousePosition;
         var point = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, Camera.main.nearClipPlane));
         var rigidBody = GetComponent<Rigidbody2D>();
-        float diffX = Math.Abs(point.x - rigidBody.position.x);
-        float diffY = Math.Abs(point.y - rigidBody.position.y);
-        if (diffX < DistanceToAnimal && diffY < DistanceToAnimal)
+        var forceX = Math.Abs(point.x - rigidBody.position.x);
+        var forceY = Math.Abs(point.y - rigidBody.position.y);
+        if (forceX < DistanceToAnimal && forceY < DistanceToAnimal)
         {
-            float forceX = diffX;
-            float forceY = diffY;
-            print("forceX " + forceX.ToString());
-            print("forceY " + forceY.ToString());
-            float newX = point.x < rigidBody.position.x
+            var newX = point.x < rigidBody.position.x
                 ? rigidBody.position.x + forceX
                 : rigidBody.position.x - forceX;
-            float newY = point.y < rigidBody.position.y
+            var newY = point.y < rigidBody.position.y
                 ? rigidBody.position.y + forceY
                 : rigidBody.position.y - forceY;
             newX = Mathf.Clamp(newX, minX, maxX);
